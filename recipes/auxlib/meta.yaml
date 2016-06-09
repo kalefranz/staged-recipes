@@ -1,0 +1,42 @@
+{% set version = "0.0.38" %}
+
+package:
+  name: auxlib
+  version: '{{ version }}'
+
+source:
+  fn: '{{ version }}.tar.gz'
+  url: https://github.com/kalefranz/auxlib/archive/{{ version }}.tar.gz
+  sha256: 9e4e5a85fd3aa508b499e413cd0b30c8cf8e11b6bc9a44acf1f0c278f85af1f8
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+  run:
+    - python
+
+test:
+  requires:
+    - pytest
+    - pytest-cov
+    - ddt
+    - testtools
+    - pycrypto
+    - pyyaml
+    - requests
+  commands:
+    - 'py.test {{ SRC_DIR }}/tests'
+
+about:
+  home: https://github.com/kalefranz/auxlib
+  license: BSD 3-Clause
+  summary: >
+    auxiliary library to the python standard library
+
+extra:
+  recipe-maintainers:
+    - kalefranz
